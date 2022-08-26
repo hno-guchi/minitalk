@@ -1,34 +1,45 @@
 NAME = libft.a
-SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlen.c \
-		ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlcpy.c ft_strlcat.c \
-		ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c \
-		ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c \
-		ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
-		ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
-BONUS_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
-OBJS = $(SRCS:%.c=%.o)
-BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
+SRCS = ft_printf.c \
+	ftp_scanning_count.c \
+	ftp_check_has_fmt.c ftp_puts_not_conv_count.c \
+	ftp_prs_fmt_count.c ftp_is_flags_count.c ftp_prs_wth_count.c ftp_prs_prec_count.c \
+	ftp_select_conv.c \
+	ftp_conv_c.c ftp_conv_s.c ftp_conv_d_i.c ftp_conv_u.c ftp_conv_p.c ftp_conv_x.c \
+	ftp_check_len_count.c \
+	ftp_fputs_percent.c ftp_fputs_c_s.c ftp_fputs_d_i.c ftp_fputs_u.c ftp_fputs_p.c ftp_fputs_x.c \
+	ftp_puts_flags.c ftp_puts_char.c \
+	ftp_atoi_count.c ftp_itoa_count.c ftp_ull_itoa_base.c \
+	ftp_str_tolower.c ftp_free_null.c
+
+OBJS = $(addprefix ./srcs/ft_printf/, $(SRCS:%.c=%.o))
+
+LIBFT_DIR = ./srcs/libft
+LIBFT_NAME = libft.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+INCLUDE = -I./includes
 
-ifdef WITH_BONUS
-	OBJS += $(BONUS_OBJS)
-endif
+.c.o:
+		$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $(<:%.c=%.o)
 
 $(NAME):	$(OBJS)
+		make -C $(LIBFT_DIR)
+		cp $(LIBFT_DIR)/$(LIBFT_NAME) $(NAME)
 		ar rcs $@ $^
 
 all:	$(NAME)
 
-bonus:
-	make WITH_BONUS=1
+bonus: all
 
 clean:
-		$(RM) $(OBJS) $(BONUS_OBJS)
-fclean:	clean
+		$(RM) $(OBJS)
+		make clean -C $(LIBFT_DIR)
+fclean:
+		$(RM) $(OBJS)
 		$(RM) $(NAME)
+		make fclean -C $(LIBFT_DIR)
 re:	fclean all
 
 .PHONY: bonus all clean fclean re

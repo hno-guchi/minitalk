@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ftp_free_null.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 11:20:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:25 by hnoguchi         ###   ########.fr       */
+/*   Created: 2022/06/15 11:43:52 by hnoguchi          #+#    #+#             */
+/*   Updated: 2022/06/29 18:48:53 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "ft_printf.h"
 
-int	main()
+ssize_t	ftp_free_null(char **s)
 {
-	pid_t	server_pid;
-
-	server_pid = getpid();
-
-	ft_printf("server: [%d]\n", (int)server_pid);
-	while(1);
-
-	return (0);
+	if (s[0] != NULL)
+	{
+		free(s[0]);
+		s[0] = NULL;
+	}
+	return (-1);
 }

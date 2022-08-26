@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 11:20:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:25 by hnoguchi         ###   ########.fr       */
+/*   Created: 2022/08/26 16:32:21 by hnoguchi          #+#    #+#             */
+/*   Updated: 2022/08/26 16:33:47 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#ifndef SERVER_H
+# define SERVER_H
 
-int	main()
-{
-	pid_t	server_pid;
+#include <unistd.h>
 
-	server_pid = getpid();
+int		ft_printf(const char *input, ...) __attribute__((format(printf, 1, 2)));
 
-	ft_printf("server: [%d]\n", (int)server_pid);
-	while(1);
-
-	return (0);
-}
+#endif

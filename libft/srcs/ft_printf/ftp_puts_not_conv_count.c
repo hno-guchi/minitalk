@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ftp_puts_not_conv_count.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 11:20:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:25 by hnoguchi         ###   ########.fr       */
+/*   Created: 2022/06/21 18:05:37 by hnoguchi          #+#    #+#             */
+/*   Updated: 2022/07/07 14:29:51 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "ft_printf.h"
+#include "libft.h"
 
-int	main()
+ssize_t	ftp_puts_not_conv_count(char *buf, size_t *p_len)
 {
-	pid_t	server_pid;
+	size_t	buf_len;
 
-	server_pid = getpid();
-
-	ft_printf("server: [%d]\n", (int)server_pid);
-	while(1);
-
-	return (0);
+	buf_len = ft_strlen(buf);
+	if ((*p_len + buf_len) < INT_MAX)
+	{
+		if (write(1, buf, buf_len) == -1)
+			return (-1);
+		*p_len += buf_len;
+		return (1);
+	}
+	return (-1);
 }

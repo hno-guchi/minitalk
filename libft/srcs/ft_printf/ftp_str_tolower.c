@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ftp_str_tolower.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 11:20:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:25 by hnoguchi         ###   ########.fr       */
+/*   Created: 2022/06/08 11:14:44 by hnoguchi          #+#    #+#             */
+/*   Updated: 2022/06/15 21:48:48 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "ft_printf.h"
+#include "libft.h"
 
-int	main()
+char	*ftp_str_tolower(char *s)
 {
-	pid_t	server_pid;
+	int	i;
 
-	server_pid = getpid();
-
-	ft_printf("server: [%d]\n", (int)server_pid);
-	while(1);
-
-	return (0);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		s[i] = ft_tolower(s[i]);
+		i += 1;
+	}
+	return (s);
 }
