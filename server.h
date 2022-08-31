@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:32:21 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/26 16:33:47 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:04:24 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SERVER_H
 
 #include <unistd.h>
-
-int		ft_printf(const char *input, ...) __attribute__((format(printf, 1, 2)));
+#include "ft_printf.h"
 
 #endif
