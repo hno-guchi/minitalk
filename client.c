@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:16:36 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/31 19:17:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:22:22 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
+	if (argc != 2)
+		return (ft_printf("Not Argument server PID\n"));
 	kill((pid_t)atoi(argv[1]), SIGSEGV);
 	ft_printf("success kill!!\n"); 
 	return (0);

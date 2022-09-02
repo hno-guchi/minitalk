@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:32:21 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/08/31 18:04:24 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:35:15 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SERVER_H
 
 #include <unistd.h>
+#include <signal.h>
 #include "ft_printf.h"
+#include "libft.h"
 
 #endif
