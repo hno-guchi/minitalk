@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 CLIENT_SRCS = client.c
-SERVER_SRCS = server_posix.c
+SERVER_SRCS = server.c
 
 CLIENT_OBJS = $(CLIENT_SRCS:%.c=%.o)
 SERVER_OBJS = $(SERVER_SRCS:%.c=%.o)
