@@ -3,6 +3,8 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
+ARFLAGS = rcs
+
 SRCS = ft_printf.c \
 	ftp_scanning_count.c \
 	ftp_check_has_fmt.c ftp_puts_not_conv_count.c \
@@ -26,8 +28,8 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-		ar rcs $(LIBFT_DIR)/$(NAME) $^
-
+		$(AR) $(ARFLAGS) $(LIBFT_DIR)/$(NAME) $(OBJS)
+		
 $(OBJS_DIR)/%.o:	%.c
 		$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $@
 

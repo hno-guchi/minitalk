@@ -3,7 +3,8 @@ NAME = minitalk
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-CLIENT_SRCS = client.c
+SRCS = signal_receiver.c exit_write_error_message.c
+CLIENT_SRCS = client.c validation_args.c
 SERVER_SRCS = server.c
 
 INCLUDES_DIR = includes
@@ -12,9 +13,13 @@ OBJS_DIR = objs
 
 INCLUDE = $(addprefix -I, ./$(INCLUDES_DIR))
 
+OBJS = $(addprefix ./$(OBJS_DIR)/, $(SRCS:%.c=%.o))
 CLIENT_OBJS = $(addprefix ./$(OBJS_DIR)/, $(CLIENT_SRCS:%.c=%.o))
 SERVER_OBJS = $(addprefix ./$(OBJS_DIR)/, $(SERVER_SRCS:%.c=%.o))
+CLIENT_OBJS += $(OBJS)
+SERVER_OBJS += $(OBJS)
 
+LIBFT_NAME = libft.a
 LIBFT_DIR = libft
 LIBFT_INCLUDES_DIR = libft/includes
 LIBFT_LIB_NAME = ft
@@ -25,12 +30,12 @@ LIBFT_INCLUDE = $(addprefix -I, ./$(LIBFT_INCLUDES_DIR))
 
 all:	$(NAME)
 
-$(NAME): $(OBJS_DIR) libft client server
+$(NAME): $(OBJS_DIR) $(LIBFT_NAME) client server
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-libft:
+$(LIBFT_NAME):
 	make -C $(LIBFT_DIR)
 
 client: $(CLIENT_OBJS)

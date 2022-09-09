@@ -6,7 +6,7 @@
 /*   By: hnoguchi <hnoguchi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 11:20:44 by hnoguchi          #+#    #+#             */
-/*   Updated: 2022/09/08 18:57:11 by hnoguchi         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:00:13 by hnoguchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,21 @@ static void	initialize_catch_bit(int *i, unsigned char *uc)
 	*uc = 0;
 }
 
-static bool	sa_initialize(struct sigaction *sa)
+static void	write_uc(int *i, unsigned char *uc, siginfo_t *info)
 {
-	if (sigemptyset(&sa->sa_mask) == -1)
-		return (false);
-	if (sigaction(SIGUSR1, sa, NULL) == -1)
-		return (false);
-	if (sigaction(SIGUSR2, sa, NULL) == -1)
-		return (false);
-	return (true);
+	static pid_t	client_pid;
+
+	write(1, uc, 1);
+	initialize_catch_bit(i, uc);
+	if (info->si_pid != 0)
+	{
+		client_pid = info->si_pid;
+		if (kill(info->si_pid, SIGUSR1) == -1)
+			exit_write_error_message(FAILED_KILL, "server");
+	}
+	else
+		if (kill(client_pid, SIGUSR1) == -1)
+			exit_write_error_message(FAILED_KILL, "server");
 }
 
 static void	signal_handler(int signal_num, siginfo_t *info, void *ucontext_ap)
@@ -39,29 +45,13 @@ static void	signal_handler(int signal_num, siginfo_t *info, void *ucontext_ap)
 	static int				i;
 	static unsigned char	uc;
 
-	(void)info;
 	(void)ucontext_ap;
 	if ((signal_num - SIGUSR1) == 1)
 		uc |= (1 << i);
 	if (i == 7)
-	{
-		// write_and_prepare_next_signal(i, uc, info);
-		write(1, &uc, 1);
-		initialize_catch_bit(&i, &uc);
-	}
+		write_uc(&i, &uc, info);
 	else
 		i += 1;
-}
-
-static void	signal_receiver(void handler(int, siginfo_t *, void *))
-{
-	struct sigaction	sa;
-
-	ft_memset(&sa, 0, sizeof(struct sigaction));
-	sa.sa_sigaction = handler;
-	sa.sa_flags = SA_SIGINFO;
-	if (sa_initialize(&sa) == false)
-		exit(1);
 }
 
 int	main(void)
